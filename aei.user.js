@@ -1,12 +1,14 @@
 // ==UserScript==
-// @name         WASON AEI数据展示
+// @name         WASON各组件AEI数据展示
 // @namespace    WASON
-// @version      1.0
+// @version      1.01
 // @description  通过 API 获取AEI数据并显示在页面顶部
 // @author       gmf
 // @match        *://aei.rdc.zte.com.cn/*
 // @grant        GM_xmlhttpRequest
 // @grant        GM_addStyle
+// @downloadURL https://raw.githubusercontent.com/CoCoThink/utils/refs/heads/main/aei.user.js
+// @updateURL https://raw.githubusercontent.com/CoCoThink/utils/refs/heads/main/aei.user.js
 // ==/UserScript==
 
 (function() {
