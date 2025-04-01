@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         WASON各组件AEI数据展示
 // @namespace    WASON
-// @version      1.01
+// @version      1.1
 // @description  通过 API 获取AEI数据并显示在页面顶部
 // @author       gmf
-// @match        *://aei.rdc.zte.com.cn/*
+// @match        https://aei.rdc.zte.com.cn/
 // @grant        GM_xmlhttpRequest
 // @grant        GM_addStyle
 // @downloadURL https://raw.githubusercontent.com/CoCoThink/utils/refs/heads/main/aei.user.js
@@ -13,6 +13,9 @@
 
 (function() {
     'use strict';
+    if (window.location.hash !== "#/dashboard") {
+        return;
+    }
 
     // 获取今天的日期，格式为 "YYYY-MM-DD"
     function getDate(todayOffset) {
@@ -36,10 +39,14 @@
     // 创建顶部栏
     const bar = document.createElement('div');
     bar.id = 'api-data-bar';
-    bar.innerHTML = '<div id="code-title">代码级<span>&nbsp&nbsp&nbspSC：</span><span id="WASON_SC_code">...</span><span>&nbsp&nbsp&nbspPCE：</span><span id="WASON_PCE_code">...</span>'+
-        '<span>&nbsp&nbsp&nbspTAP：</span><span id="WASON_TAP_code">...</span><span>&nbsp&nbsp&nbspIMS：</span><span id="IMS_code">...</span></div>' +
-                '<div id="component-title">组件级<span>&nbsp&nbsp&nbspSC：</span><span id="IC_WASON_SC_component">...</span><span>&nbsp&nbsp&nbspPCE：</span><span id="IC_WASON_PCE_component">...</span>'+
-        '<span>&nbsp&nbsp&nbspTAP：</span><span id="IC_WASON_TAP_component">...</span><span>&nbsp&nbsp&nbspIMS：</span><span id="IC_IMS_component">...</span></div>';
+    bar.innerHTML = '<div id="code-title">代码级<a id="WASON_SC_code_a" href="" target="_blank"><span>&nbsp&nbsp&nbspSC：</span><span id="WASON_SC_code">...</span></a>'+
+        '<a id="WASON_PCE_code_a" target="_blank"><span>&nbsp&nbsp&nbspPCE：</span><span id="WASON_PCE_code">...</span></a>'+
+        '<a id="WASON_TAP_code_a" target="_blank"><span>&nbsp&nbsp&nbspTAP：</span><span id="WASON_TAP_code">...</span></a>'+
+        '<a id="IMS_code_a" target="_blank"><span>&nbsp&nbsp&nbspIMS：</span><span id="IMS_code">...</span></div></a>' +
+        '<div id="component-title">组件级<a id="IC_WASON_SC_component_a" target="_blank"><span>&nbsp&nbsp&nbspSC：</span><span id="IC_WASON_SC_component">...</span></a>'+
+        '<a id="IC_WASON_PCE_component_a" target="_blank"><span>&nbsp&nbsp&nbspPCE：</span><span id="IC_WASON_PCE_component">...</span></a>'+
+        '<a id="IC_WASON_TAP_component_a" target="_blank"><span>&nbsp&nbsp&nbspTAP：</span><span id="IC_WASON_TAP_component">...</span></a>'+
+        '<a id="IC_IMS_component_a" target="_blank"><span>&nbsp&nbsp&nbspIMS：</span><span id="IC_IMS_component">...</span></div></a>';
 
     container.appendChild(bar);
 
@@ -54,7 +61,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            pointer-events: none;
+            /*pointer-events: none;*/
         }
         #api-data-bar {
             background-color: rgba(51, 51, 51, 0.8);
@@ -117,7 +124,8 @@
                         for (let i = 0; i < list.length; i++) {
                             const item = list[i];
                             let score =0;
-                            for(let j=item.data.length-1; j>=0; j--){
+                            let j = 0;
+                            for(j=item.data.length-1; j>=0; j--){
                                 console.log('score data:', item.data[j]);
                                 if(item.data[j] !== null){
                                     score = item.data[j];
@@ -126,9 +134,13 @@
                             }
                             //const score = item.data.slice(-1)[0]
                             console.log('score:', score, 'ID:', item.name+"_"+metricType);
-                            const scoreValueElement = document.getElementById(item.name+"_"+metricType);
+                            const scoreElemId = item.name+"_"+metricType;
+                            const scoreValueElement = document.getElementById(scoreElemId);
                             scoreValueElement.textContent = score;
                             if (score < 600) scoreValueElement.classList.add('low-score');
+                            const date = getDate(j+1-item.data.length);
+                            const url = 'https://aei.rdc.zte.com.cn/#/metricResultDrill?archMetricDimension=score&date='+date+'&blockName='+item.name+'&taskType='+metricType+'&taskId='+data.body.datas.convertDataMap.taskIdClick[i];
+                            document.getElementById(scoreElemId+'_a').href = url;
                         }
                     } catch (e) {
                         document.getElementById(metricType+"-title").textContent += '数据解析错误';
