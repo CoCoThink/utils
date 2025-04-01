@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WASON各组件AEI数据展示
 // @namespace    WASON
-// @version      1.1
+// @version      1.2
 // @description  通过 API 获取AEI数据并显示在页面顶部
 // @author       gmf
 // @match        https://aei.rdc.zte.com.cn/
