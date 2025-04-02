@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WASON各组件AEI数据展示
 // @namespace    WASON
-// @version      1.2
+// @version      1.3
 // @description  通过 API 获取AEI数据并显示在页面顶部
 // @author       gmf
 // @match        https://aei.rdc.zte.com.cn/
@@ -39,14 +39,14 @@
     // 创建顶部栏
     const bar = document.createElement('div');
     bar.id = 'api-data-bar';
-    bar.innerHTML = '<div id="code-title">代码级<a id="WASON_SC_code_a" href="" target="_blank"><span>&nbsp&nbsp&nbspSC：</span><span id="WASON_SC_code">...</span></a>'+
-        '<a id="WASON_PCE_code_a" target="_blank"><span>&nbsp&nbsp&nbspPCE：</span><span id="WASON_PCE_code">...</span></a>'+
-        '<a id="WASON_TAP_code_a" target="_blank"><span>&nbsp&nbsp&nbspTAP：</span><span id="WASON_TAP_code">...</span></a>'+
-        '<a id="IMS_code_a" target="_blank"><span>&nbsp&nbsp&nbspIMS：</span><span id="IMS_code">...</span></div></a>' +
-        '<div id="component-title">组件级<a id="IC_WASON_SC_component_a" target="_blank"><span>&nbsp&nbsp&nbspSC：</span><span id="IC_WASON_SC_component">...</span></a>'+
-        '<a id="IC_WASON_PCE_component_a" target="_blank"><span>&nbsp&nbsp&nbspPCE：</span><span id="IC_WASON_PCE_component">...</span></a>'+
-        '<a id="IC_WASON_TAP_component_a" target="_blank"><span>&nbsp&nbsp&nbspTAP：</span><span id="IC_WASON_TAP_component">...</span></a>'+
-        '<a id="IC_IMS_component_a" target="_blank"><span>&nbsp&nbsp&nbspIMS：</span><span id="IC_IMS_component">...</span></div></a>';
+    bar.innerHTML = '<div id="code-title">代码级&nbsp&nbsp&nbsp<a id="WASON_SC_code_a" href="" target="_blank"><span>SC：</span><span id="WASON_SC_code">...</span></a>'+
+        '&nbsp&nbsp&nbsp<a id="WASON_PCE_code_a" target="_blank"><span>PCE：</span><span id="WASON_PCE_code">...</span></a>'+
+        '&nbsp&nbsp&nbsp<a id="WASON_TAP_code_a" target="_blank"><span>TAP：</span><span id="WASON_TAP_code">...</span></a>'+
+        '&nbsp&nbsp&nbsp<a id="IMS_code_a" target="_blank"><span>IMS：</span><span id="IMS_code">...</span></div></a>' +
+        '<div id="component-title">组件级&nbsp&nbsp&nbsp<a id="IC_WASON_SC_component_a" target="_blank"><span>SC：</span><span id="IC_WASON_SC_component">...</span></a>'+
+        '&nbsp&nbsp&nbsp<a id="IC_WASON_PCE_component_a" target="_blank"><span>PCE：</span><span id="IC_WASON_PCE_component">...</span></a>'+
+        '&nbsp&nbsp&nbsp<a id="IC_WASON_TAP_component_a" target="_blank"><span>TAP：</span><span id="IC_WASON_TAP_component">...</span></a>'+
+        '&nbsp&nbsp&nbsp<a id="IC_IMS_component_a" target="_blank"><span>IMS：</span><span id="IC_IMS_component">...</span></div></a>';
 
     container.appendChild(bar);
 
